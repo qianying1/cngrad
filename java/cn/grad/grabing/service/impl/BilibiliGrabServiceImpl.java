@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.Map;
 
 @Service("bilibiliGrabServiceImpl")
@@ -35,7 +36,7 @@ public class BilibiliGrabServiceImpl extends BaseUtil implements BiliBiliGrabSer
     @Resource(name = "htmlUnitWebClient")
     private HtmlUnitWebClient htmlUnitWebClient;
     //htmlUnit抓取工具的初始化
-    private Map<String, Object> htmlUnitInitParams;
+    private Map<String, Object> htmlUnitInitParams=new HashMap<>();
 
     /**
      * 超时时间
@@ -136,7 +137,7 @@ public class BilibiliGrabServiceImpl extends BaseUtil implements BiliBiliGrabSer
     private WebClient webClient;
 
     private BilibiliGrabServiceImpl() {
-        if (!ObjectUtils.equals(getTimeout(), null)) {
+        if (ObjectUtils.notEqual(getTimeout(), null)) {
             htmlUnitInitParams.put("timeout",getTimeout());
         }
         if (StringUtils.isNotBlank(getUrl()) && StringUtils.isNotBlank(getCookieKey()) && StringUtils.isNotBlank(getCookieValue())) {
